@@ -1,50 +1,59 @@
 package com.example.asami234.recipebook;
 
-public class Recipe_Structure {
+public class Recipe {
 
     private int recipe_id;
     private String recipe_title;
     private String recipe_content;
 
+    // default constructor when we don't want to pass anything when creating and object of this class
+    public Recipe() {
 
-    //  main constructor used to set  all the contents
-    public Recipe_Structure(int recipe_id, String recipe_title, String recipe_content) {
-        this.recipe_id = recipe_id;
+    }
+
+
+    public Recipe(String recipe_title, String recipe_content) {
         this.recipe_title = recipe_title;
         this.recipe_content = recipe_content;
     }
 
+    //  main constructor used to set  all the contents
+    public Recipe(int recipe_id, String recipe_title, String recipe_content) {
+        this.recipe_id = recipe_id;
+        this.recipe_title = recipe_title;
+        this.recipe_content = recipe_content;
+     }
+
 
      // set recipe id only
-
-      private void setRecipe_id(int id){
+      public void setRecipe_id(int id){
         this.recipe_id = id;
       }
 
 
       // set recipe content only
-      private void setRecipe_content(String content){
+      public void setRecipe_content(String content){
         this.recipe_content = content;
       }
 
 
       // set recipe title only
-      private void setRecipe_title(String title){
+      public void setRecipe_title(String title){
         this.recipe_title = title;
       }
 
       // retrieve recipe ID
-      private int getRecipe_id(){
+      public int getRecipe_id(){
         return  recipe_id;
       }
 
       // retrieve recipe content
-      private String getRecipe_content(){
+      public String getRecipe_content(){
         return recipe_content;
       }
 
       // retrieve recipe title
-      private String getRecipe_title(){
+      public String getRecipe_title(){
         return recipe_title;
       }
 }

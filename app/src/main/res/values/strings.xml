@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Recipe Book</string>
+    <string name="recipe_title_tv">Recipe Name : </string>
+    <string name="activity_title_add">Add Recipe</string>
+    <string name="recipe_content_tv">Recipe Instructions : </string>
+    <string name="recipe_name_hint">name</string>
+    <string name="recipe_content_hint">instructions</string>
+    <string name="recipe_id_tv">Recipe ID : </string>
 </resources>
