@@ -17,6 +17,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddRecipe"></activity>
+
+       <provider
+           android:authorities="com.example.asami234.recipebook.contentprovider"
+           android:name=".contentprovider.RecipeContentProvider"
+           android:enabled="true"
+           android:exported="true">
+       </provider>
     </application>
 
 </manifest>

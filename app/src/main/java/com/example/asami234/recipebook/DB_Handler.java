@@ -1,5 +1,6 @@
 package com.example.asami234.recipebook;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,23 +8,28 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import com.example.asami234.recipebook.contentprovider.RecipeContentProvider;
+
 // interacts with the database
 public class DB_Handler extends SQLiteOpenHelper {
 
     // initializing variables related to DB
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "recipeDB.db";
-    private static final String TABLE_RECIPES = "recipes";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "recipeDB.db";
+    public static final String TABLE_RECIPES = "recipes";
 
 
     // initializing variables related to table "recipes"
-    private static final String COLUMN_RECIPE_ID ="recipe_id";
-    private static final String COLUMN_RECIPE_TITLE = "recipe_title";
-    private static final String COLUMN_RECIPE_CONTENT = "recipe_content";
+    public static final String COLUMN_RECIPE_ID ="recipe_id";
+    public static final String COLUMN_RECIPE_TITLE = "recipe_title";
+    public static final String COLUMN_RECIPE_CONTENT = "recipe_content";
 
+    private ContentResolver contentResolver;
 
     public DB_Handler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
+        contentResolver = context.getContentResolver();
     }
 
     // creates a new table in the database
@@ -59,21 +65,22 @@ public class DB_Handler extends SQLiteOpenHelper {
         // insert recipe content
         contentValues.put(COLUMN_RECIPE_CONTENT,recipe.getRecipe_content());
 
-        // get database ( writable because we want to write to the database)
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // insert new recipe to the table "recipes" in the database
-        db.insert(TABLE_RECIPES,null,contentValues);
+        contentResolver.insert(RecipeContentProvider.CONTENT_URI,contentValues);
     }
 
 
     // query a recipe in the database
     public Recipe findRecipe(String recipe_title){
 
-        String query = "SELECT * FROM "+ TABLE_RECIPES + " WHERE " + COLUMN_RECIPE_TITLE + " = \" "
-                + recipe_title + "\" ";SQLiteDatabase db = this.getWritableDatabase();
+        String[] projection = {
+                COLUMN_RECIPE_ID,
+                COLUMN_RECIPE_TITLE,
+                COLUMN_RECIPE_CONTENT};
 
-        Cursor cursor = db.rawQuery(query,null);
+        String selection = "recipe_title = \" " + recipe_title + "\"";
+
+        Cursor cursor = contentResolver.query(RecipeContentProvider.CONTENT_URI,projection,selection,
+                null,null);
 
         Recipe recipe = new Recipe();
 
@@ -89,27 +96,18 @@ public class DB_Handler extends SQLiteOpenHelper {
             // if recipe dose not exist in the DB.
             recipe = null;
         }
-        db.close();
         return recipe;
     }
 
     // delete recipe from database
     public boolean deleteRecipe(String recipeTitle){
         boolean result = false;
-        String query = "SELECT * FROM " + TABLE_RECIPES + " WHERE " + COLUMN_RECIPE_TITLE + " = \" " + recipeTitle + "\" ";
+        String selection = "recipe_title = \"" + recipeTitle + "\" ";
+        int rowsDeleted = contentResolver.delete(RecipeContentProvider.CONTENT_URI, selection,null);
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        Recipe recipe = new Recipe();
-        if (cursor.moveToFirst()) {
-            recipe.setRecipe_id(Integer.parseInt(cursor.getString(0)));
-            db.delete(TABLE_RECIPES, COLUMN_RECIPE_ID + " = ?", new String[] { String.valueOf(recipe.getRecipe_id()) });
-            cursor.close();
+        if(rowsDeleted > 0){
             result = true;
         }
-        db.close();
         return result;
     }
 

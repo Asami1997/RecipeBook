@@ -32,29 +32,12 @@ public class AddRecipe extends AppCompatActivity {
 
     public void addRecipe (View view) {
 
-        DB_Handler dbHandler = new DB_Handler(this,null, null,1);
 
-        Recipe recipe = new Recipe(recipeTitle,recipeContent);
-
-        dbHandler.addRecipe(recipe);
-        recipeTitleET.setText("");
-        recipeContentET.setText("");
-        recipeIDET.setText("");
     }
 
 
     public void deleteProduct (View view) {
 
-        DB_Handler dbHandler = new DB_Handler(this, null, null,1);
-        boolean result = dbHandler.deleteRecipe(recipeTitleET.getText().toString());
-        if (result) {
-            recipeIDET.setText("Record Deleted");
-            recipeTitleET.setText("");
-            recipeContentET.setText("");
-        }else{
-
-            recipeIDET.setText("No Match Found");
-        }
  }
 
 }
