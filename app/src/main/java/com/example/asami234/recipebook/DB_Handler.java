@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.asami234.recipebook.contentprovider.RecipeContentProvider;
 
@@ -24,7 +25,7 @@ public class DB_Handler extends SQLiteOpenHelper {
     public static final String COLUMN_RECIPE_TITLE = "recipe_title";
     public static final String COLUMN_RECIPE_CONTENT = "recipe_content";
 
-    private ContentResolver contentResolver;
+    public static ContentResolver contentResolver;
 
     public DB_Handler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -55,7 +56,6 @@ public class DB_Handler extends SQLiteOpenHelper {
 
 
     // inserts new recipe to the database
-
     public void addRecipe(Recipe recipe){
         ContentValues contentValues = new ContentValues();
         // insert recipe ID
@@ -66,6 +66,9 @@ public class DB_Handler extends SQLiteOpenHelper {
         contentValues.put(COLUMN_RECIPE_CONTENT,recipe.getRecipe_content());
 
         contentResolver.insert(RecipeContentProvider.CONTENT_URI,contentValues);
+
+        Log.i("hisapp",recipe.getRecipe_title());
+
     }
 
 
