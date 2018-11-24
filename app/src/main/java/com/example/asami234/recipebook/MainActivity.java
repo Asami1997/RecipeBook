@@ -15,17 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void findRecipe(View view) {
 
-        DB_Handler dbHandler = new DB_Handler(this, null, null, 1);
-
-        Recipe recipe = dbHandler.findRecipe(recipeTitleET.getText().toString());
-
-        if(recipe !=null) {
-            recipeIDET.setText(recipe.getRecipe_id());
-            recipeTitleET.setText(String.valueOf(recipe.getRecipe_title()));
-            recipeContentET.setText(String.valueOf(recipe.getRecipe_content()));
-        }else{
-            recipeIDET.setText("No Match Found");
-        }
     }
 
 
