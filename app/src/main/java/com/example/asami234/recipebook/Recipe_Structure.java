@@ -33,6 +33,18 @@ public class Recipe_Structure {
         this.recipe_title = title;
       }
 
+      // retrieve recipe ID
+      private int getRecipe_id(){
+        return  recipe_id;
+      }
 
+      // retrieve recipe content
+      private String getRecipe_content(){
+        return recipe_content;
+      }
 
+      // retrieve recipe title
+      private String getRecipe_title(){
+        return recipe_title;
+      }
 }
