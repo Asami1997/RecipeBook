@@ -1,6 +1,8 @@
 package com.example.asami234.recipebook;
-
+                                               // Structure of each recipe stored in the SqLite database
 public class Recipe {
+
+    // declaring variables
 
     private int recipe_id;
     private String recipe_title;
@@ -12,6 +14,7 @@ public class Recipe {
     }
 
 
+    // constructor for only the title and the content
     public Recipe(String recipe_title, String recipe_content) {
         this.recipe_title = recipe_title;
         this.recipe_content = recipe_content;

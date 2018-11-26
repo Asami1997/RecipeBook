@@ -1,3 +1,4 @@
+
 package com.example.asami234.recipebook;
 
 import android.content.ContentResolver;
@@ -7,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.example.asami234.recipebook.contentprovider.RecipeContentProvider;
 
@@ -73,7 +73,6 @@ public class DB_Handler extends SQLiteOpenHelper {
 
         // generate id
          random = new Random().nextInt((max - min) + 1) + min;
-         Log.i("hisappid",Integer.toString(random));
 
          // set id
         recipe.setRecipe_id(random);
@@ -87,7 +86,6 @@ public class DB_Handler extends SQLiteOpenHelper {
 
         contentResolver.insert(RecipeContentProvider.CONTENT_URI,contentValues);
 
-        Log.i("hisapp",recipe.getRecipe_title());
 
     }
 

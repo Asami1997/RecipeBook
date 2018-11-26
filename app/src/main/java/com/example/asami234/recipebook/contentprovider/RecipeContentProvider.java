@@ -1,3 +1,6 @@
+
+                                                    // THIS CLASS IS TAKEN FROM LAB 5
+
 package com.example.asami234.recipebook.contentprovider;
 
 import android.content.ContentProvider;
@@ -35,6 +38,8 @@ public class RecipeContentProvider extends ContentProvider {
     }
 
     @Override public int delete(Uri uri, String selection, String[] selectionArgs) {
+
+        Log.i("recipeapp","in content provider delete function  ");
 
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = db_handler.getWritableDatabase();
@@ -75,7 +80,6 @@ public class RecipeContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-//TODO: Implement this to handle requests for the MIME type of the data at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -83,7 +87,8 @@ public class RecipeContentProvider extends ContentProvider {
     public
     Uri insert(Uri uri, ContentValues values) {
 
-        Log.i("hisapp","insert");
+        Log.i("recipeapp","in content provider insert function ");
+
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = db_handler.getWritableDatabase();
         long id = 0;
@@ -102,7 +107,9 @@ public class RecipeContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-//TODO: Implement this to initialize your content provider on startup.
+
+        Log.i("recipeapp","in content provider onCreate function ");
+
 
         db_handler = new DB_Handler(getContext(),null,null,1);
         return false;
@@ -113,7 +120,8 @@ public class RecipeContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
-        Log.i("hisapp","query");
+        Log.i("recipeapp","in content provider query function ");
+
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(DB_Handler.TABLE_RECIPES);
 
@@ -143,6 +151,8 @@ public class RecipeContentProvider extends ContentProvider {
 
     @Override public int update(Uri uri, ContentValues values, String selection,
            String[] selectionArgs) {
+
+        Log.i("recipeapp","in content provider update function ");
 
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = db_handler.getWritableDatabase();
