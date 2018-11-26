@@ -14,7 +14,7 @@ import com.example.asami234.recipebook.DB_Handler;
 
 public class RecipeContentProvider extends ContentProvider {
 
-    private static final String AUTHORITY = "com.example.asami234.recipebok.contentprovider";
+    private static final String AUTHORITY = "com.example.asami234.recipebook.contentprovider";
     private static final String RECIPES_TABLE = "recipes";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + RECIPES_TABLE);
 
@@ -82,6 +82,8 @@ public class RecipeContentProvider extends ContentProvider {
     @Override
     public
     Uri insert(Uri uri, ContentValues values) {
+
+        Log.i("hisapp","insert");
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = db_handler.getWritableDatabase();
         long id = 0;

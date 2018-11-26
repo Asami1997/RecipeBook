@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.example.asami234.recipebook.contentprovider.RecipeContentProvider;
 
+import java.util.Random;
+
 // interacts with the database
 public class DB_Handler extends SQLiteOpenHelper {
 
@@ -27,10 +29,20 @@ public class DB_Handler extends SQLiteOpenHelper {
 
     public static ContentResolver contentResolver;
 
+    // random number min and max
+    final int min = 101;
+    final int max = 10101
+            ;
+    int random;
+
     public DB_Handler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
 
         contentResolver = context.getContentResolver();
+    }
+
+    public  ContentResolver getContentResolver() {
+        return contentResolver;
     }
 
     // creates a new table in the database
@@ -58,6 +70,14 @@ public class DB_Handler extends SQLiteOpenHelper {
     // inserts new recipe to the database
     public void addRecipe(Recipe recipe){
         ContentValues contentValues = new ContentValues();
+
+        // generate id
+         random = new Random().nextInt((max - min) + 1) + min;
+         Log.i("hisappid",Integer.toString(random));
+
+         // set id
+        recipe.setRecipe_id(random);
+
         // insert recipe ID
         contentValues.put(COLUMN_RECIPE_ID,recipe.getRecipe_id());
         // insert recipe title

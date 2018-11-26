@@ -16,14 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddRecipe"></activity>
+        <activity android:name=".AddRecipe" />
 
-       <provider
-           android:authorities="com.example.asami234.recipebook.contentprovider"
-           android:name=".contentprovider.RecipeContentProvider"
-           android:enabled="true"
-           android:exported="true">
-       </provider>
+        <provider
+            android:name=".contentprovider.RecipeContentProvider"
+            android:authorities="com.example.asami234.recipebook.contentprovider"
+            android:enabled="true"
+            android:exported="true"></provider>
+
+        <activity android:name=".Display_Activity"></activity>
     </application>
 
 </manifest>

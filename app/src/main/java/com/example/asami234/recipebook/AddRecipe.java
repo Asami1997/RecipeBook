@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddRecipe extends AppCompatActivity {
 
@@ -32,29 +33,23 @@ public class AddRecipe extends AppCompatActivity {
         recipeTitle = recipeTitleET.getText().toString();
         recipeContent = recipeContentET.getText().toString();
 
-        DB_Handler dbHandler = new DB_Handler(this,null, null,1);
+        if(recipeTitle.isEmpty() || recipeContent.isEmpty()){
 
-        Recipe recipe = new Recipe(recipeTitle,recipeContent);
-
-        dbHandler.addRecipe(recipe);
-        recipeTitleET.setText("");
-        recipeContentET.setText("");
-        recipeIDET.setText("");
-    }
-
-
-    public void deleteProduct (View view) {
-
-        DB_Handler dbHandler = new DB_Handler(this, null, null,1);
-        boolean result = dbHandler.deleteRecipe(recipeTitleET.getText().toString());
-        if (result) {
-            recipeIDET.setText("Record Deleted");
-            recipeTitleET.setText("");
-            recipeContentET.setText("");
+            Toast.makeText(this, "Please enter both the title and the instructions", Toast.LENGTH_SHORT).show();
         }else{
 
-            recipeIDET.setText("No Match Found");
+            DB_Handler dbHandler = new DB_Handler(this,"recipes", null,1);
+
+            Recipe recipe = new Recipe(recipeTitle,recipeContent);
+
+            dbHandler.addRecipe(recipe);
+            recipeTitleET.setText("");
+            recipeContentET.setText("");
+            recipeIDET.setText("");
+
+            finish();
         }
- }
+
+    }
 
 }
